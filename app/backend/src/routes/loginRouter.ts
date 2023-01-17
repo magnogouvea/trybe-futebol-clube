@@ -1,6 +1,6 @@
 import * as express from 'express';
 import loginValidation from '../middleware/loginValidation';
-import LoginController from '../controller/Login.Controller';
+import LoginController from '../controller/LoginController';
 
 const loginController = new LoginController();
 
