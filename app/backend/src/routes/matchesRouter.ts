@@ -5,6 +5,6 @@ const macthesController = new MatchesController();
 
 const router = express.Router();
 
-router.get('/', (req, res) => macthesController.findAllMatches(req, res));
+router.get('/', (req, res) => macthesController.findAllMatchesFilter(req, res));
 
 export default router;
