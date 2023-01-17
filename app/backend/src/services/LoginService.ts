@@ -1,3 +1,4 @@
+import IError from '../entities/IError';
 import generateToken from '../utils/token';
 import IUser from '../entities/IUser';
 import Users from '../database/models/UserModel';
@@ -10,11 +11,21 @@ export default class LoginService {
   }
 
   public async userLogin(userBody: IUser): Promise<string> {
+    const { email, password } = userBody;
     const user: IUser | null = await this._model.findOne({
-      where: { email: userBody.email },
+      where: { email },
     });
-    const token = await LoginService.verifyPassword(userBody.password, user as IUser);
+    await LoginService.verifyUser(user);
+    const token = await LoginService.verifyPassword(password, user as IUser);
     return token;
+  }
+
+  private static async verifyUser(user: IUser | null): Promise<void> {
+    if (!user) {
+      const err: IError = new Error('Incorrect email or password');
+      err.status = 401;
+      throw err;
+    }
   }
 
   private static async verifyPassword(password: string, user: IUser): Promise<string> {
