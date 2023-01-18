@@ -16,4 +16,16 @@ export default class MatchesController {
     const filteredMatches = await this.matchesService.findMatchesInProgress(matchesInProgress);
     return res.status(200).json(filteredMatches);
   }
+
+  public async saveMatchInProgress(req: Request, res: Response) {
+    const { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals } = req.body;
+    const createMatch = await this.matchesService.saveMatchesInProgress({
+      homeTeam,
+      homeTeamGoals,
+      awayTeam,
+      awayTeamGoals,
+    });
+
+    return res.status(201).json(createMatch);
+  }
 }

@@ -1,3 +1,4 @@
+import IMatch from '../entities/IMatch';
 import Matches from '../database/models/MatchesModel';
 
 export default class MatchesService {
@@ -14,5 +15,18 @@ export default class MatchesService {
       include: ['teamHome', 'teamAway'],
     });
     return filterMatches;
+  }
+
+  public async saveMatchesInProgress(saveMatch: IMatch): Promise<IMatch> {
+    const { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals } = saveMatch;
+    const createMatch = await this.model.create({ ...saveMatch, inProgress: true });
+    return {
+      id: createMatch.id,
+      homeTeam,
+      homeTeamGoals,
+      awayTeam,
+      awayTeamGoals,
+      inProgress: true,
+    };
   }
 }
