@@ -29,4 +29,8 @@ export default class MatchesService {
       inProgress: true,
     };
   }
+
+  public async updateStatusMatches(id: number): Promise<void> {
+    await this.model.update({ inProgress: false }, { where: { id } });
+  }
 }

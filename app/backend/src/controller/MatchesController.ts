@@ -28,4 +28,10 @@ export default class MatchesController {
 
     return res.status(201).json(createMatch);
   }
+
+  public async updateStatusMatches(req: Request, res: Response) {
+    const intergerId = parseInt(req.params.id, 10);
+    await this.matchesService.updateStatusMatches(intergerId);
+    return res.status(200).json({ message: 'Finished' });
+  }
 }
