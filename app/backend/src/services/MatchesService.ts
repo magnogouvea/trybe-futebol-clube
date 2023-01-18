@@ -30,6 +30,14 @@ export default class MatchesService {
     };
   }
 
+  public async updateMatchGoals(
+    id: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<void> {
+    await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  }
+
   public async updateStatusMatches(id: number): Promise<void> {
     await this.model.update({ inProgress: false }, { where: { id } });
   }
